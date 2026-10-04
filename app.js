@@ -82,10 +82,60 @@ document.addEventListener('DOMContentLoaded', () => {
     onMove: handleUserBoardMove
   });
 
+  // Progress/Stats Logic
+  function getProgressStats() {
+    try {
+      const stats = localStorage.getItem('chess_openings_stats');
+      return stats ? JSON.parse(stats) : {};
+    } catch (e) {
+      return {};
+    }
+  }
+
+  function saveProgress(openingId, mistakes) {
+    const stats = getProgressStats();
+    if (!stats[openingId]) {
+      stats[openingId] = { completions: 0, perfectRuns: 0, bestMistakes: mistakes };
+    }
+    stats[openingId].completions += 1;
+    if (mistakes === 0) stats[openingId].perfectRuns += 1;
+    if (mistakes < stats[openingId].bestMistakes) stats[openingId].bestMistakes = mistakes;
+    
+    try {
+      localStorage.setItem('chess_openings_stats', JSON.stringify(stats));
+    } catch (e) {
+      console.error("No se pudo guardar el progreso", e);
+    }
+  }
+
+  function renderOpeningStatsUI() {
+    const stats = getProgressStats();
+    const stat = stats[state.currentOpening.id];
+    let statsHtml = '';
+    if (stat && stat.completions > 0) {
+      statsHtml = `<div style="margin-top: 0.5rem; font-size: 0.85rem; color: #10b981; font-weight: bold;">
+        ✅ Completada ${stat.completions} vez/veces (Perfectas: ${stat.perfectRuns})
+      </div>`;
+    }
+    
+    // We can append this to the summary
+    const existingStats = openingSummaryEl.parentNode.querySelector('.opening-stats-ui');
+    if (existingStats) existingStats.remove();
+    
+    if (statsHtml) {
+      const statsContainer = document.createElement('div');
+      statsContainer.className = 'opening-stats-ui';
+      statsContainer.innerHTML = statsHtml;
+      openingSummaryEl.parentNode.insertBefore(statsContainer, openingSummaryEl.nextSibling);
+    }
+  }
+
   // Populate Openings Select
   function populateOpenings() {
+    const currentVal = openingSelect.value;
     openingSelect.innerHTML = '';
     const categories = {};
+    const stats = getProgressStats();
 
     OPENINGS_DATA.forEach(op => {
       if (!categories[op.category]) categories[op.category] = [];
@@ -98,10 +148,16 @@ document.addEventListener('DOMContentLoaded', () => {
       ops.forEach(op => {
         const opt = document.createElement('option');
         opt.value = op.id;
-        opt.textContent = `${op.eco} - ${op.name}`;
+        const isCompleted = stats[op.id] && stats[op.id].completions > 0;
+        const mark = isCompleted ? "✅ " : "";
+        opt.textContent = `${mark}${op.eco} - ${op.name}`;
         optgroup.appendChild(opt);
       });
       openingSelect.appendChild(optgroup);
+    }
+    
+    if (currentVal) {
+      openingSelect.value = currentVal;
     }
   }
 
@@ -179,9 +235,12 @@ document.addEventListener('DOMContentLoaded', () => {
     openingSideEl.textContent = found.side === 'w' ? 'Blancas' : 'Negras';
     openingSideEl.className = `badge ${found.side === 'w' ? 'badge-side-w' : 'badge-side-b'}`;
 
+    // Render Stats
+    renderOpeningStatsUI();
+
     // Update Plans
-    plansWhiteList.innerHTML = found.plansWhite.map(p => `<li>${p}</li>`).join('');
-    plansBlackList.innerHTML = found.plansBlack.map(p => `<li>${p}</li>`).join('');
+    plansWhiteList.innerHTML = found.plansWhite.map(p => `<li>\${p}</li>`).join('');
+    plansBlackList.innerHTML = found.plansBlack.map(p => `<li>\${p}</li>`).join('');
 
     // Update Traps
     if (found.traps && found.traps.length > 0) {
@@ -405,6 +464,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Check if training finished
     if (state.practiceStep >= state.currentOpening.moves.length) {
+      saveProgress(state.currentOpening.id, state.practiceMistakes);
+      populateOpenings();
+      renderOpeningStatsUI();
       practiceStatusBanner.className = 'practice-status-banner completed';
       practiceStatusBanner.innerHTML = `
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">

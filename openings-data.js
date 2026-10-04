@@ -8,7 +8,7 @@ const OPENINGS_DATA = [
   {
     id: "italiana-giuoco-piano",
     category: "Abiertas (1.e4 e5)",
-    name: "Apertura Italiana: Giuoco Piano",
+    name: "Italiana: Giuoco Piano (Línea Principal)",
     eco: "C50",
     side: "w", // w = blancas, b = negras
     difficulty: "Principiante - Intermedio",
@@ -191,6 +191,53 @@ const OPENINGS_DATA = [
         title: "La Trampa de Légal (Mate en 8 jugadas)",
         desc: "Si las negras clavan el caballo con ...Ag4 y se descuidan, las blancas sacrifican la dama con Cxe5!, permitiendo Axd1?? y rematando con Axf7+ Re7 y Cd5#.",
         moves: "1.e4 e5 2.Cf3 d6 3.Ac4 Ag4 4.Cc3 h6 5.Cxe5! Axd1 6.Axf7+ Re7 7.Cd5#"
+      }
+    ]
+  },
+
+  {
+    id: "italiana-dos-caballos-fegatello",
+    category: "Abiertas (1.e4 e5)",
+    name: "Italiana: Dos Caballos (Ataque Fegatello)",
+    eco: "C57",
+    side: "w",
+    difficulty: "Intermedio",
+    style: "Táctico / Ataque Agresivo",
+    ratingRange: "800 - 2000",
+    summary: "En la Defensa de los Dos Caballos, las negras ignoran la amenaza sobre f7 y desarrollan su caballo a f6. Las blancas responden con el ultra-agresivo Ataque Fegatello (Cg5), forzando una crisis táctica temprana.",
+    plansWhite: [
+      "Atacar el punto débil f7 combinando el Alfil de c4 y el Caballo de g5.",
+      "Sacrificar el caballo en f7 (Cxf7) si las negras recapturan erróneamente en d5 con el caballo.",
+      "Lanzar un ataque devastador sobre el rey negro expuesto en el centro."
+    ],
+    plansBlack: [
+      "Bloquear la diagonal del alfil con ...d5.",
+      "NO recapturar en d5 con el caballo (lo cual permite el Fegatello), sino jugar ...Ca5 (Variante Polerio).",
+      "Buscar contrajuego activo en el flanco de dama y aprovechar el retraso en el desarrollo blanco."
+    ],
+    keySquares: ["f7", "g5", "d5", "c4"],
+    moves: [
+      { san: "e4", from: "e2", to: "e4", name: "Peón de Rey", comment: "Apertura clásica.", highlightSquares: ["e4"] },
+      { san: "e5", from: "e7", to: "e5", name: "Respuesta de Peón de Rey", comment: "Control central negro.", highlightSquares: ["e5"] },
+      { san: "Nf3", from: "g1", to: "f3", name: "Desarrollo del Caballo", comment: "Ataca e5.", highlightSquares: ["e5"] },
+      { san: "Nc6", from: "b8", to: "c6", name: "Defensa con Caballo", comment: "Defiende e5.", highlightSquares: ["e5"] },
+      { san: "Bc4", from: "f1", to: "c4", name: "El Alfil Italiano", comment: "Apunta a f7.", highlightSquares: ["f7", "c4"] },
+      { san: "Nf6", from: "g8", to: "f6", name: "Defensa de los Dos Caballos", comment: "En lugar de ...Ac5, las negras contraatacan e4, permitiendo Cg5.", highlightSquares: ["e4"] },
+      { san: "Ng5", from: "f3", to: "g5", name: "Ataque Fegatello", comment: "¡Las blancas se lanzan al cuello! Amenazan de inmediato Cxf7 o Axf7+, ganando material.", highlightSquares: ["f7"] },
+      { san: "d5", from: "d7", to: "d5", name: "Bloqueo central", comment: "La única defensa válida para las negras: interceptar la diagonal del alfil.", highlightSquares: ["d5", "c4"] },
+      { san: "exd5", from: "e4", to: "d5", name: "Captura blanca", comment: "Las blancas toman el peón, renovando la presión.", highlightSquares: ["d5"] },
+      { san: "Nxd5", from: "f6", to: "d5", name: "El error fatal (Recaptura)", comment: "¡Un error natural pero letal! Las negras debieron jugar ...Ca5 para atacar al alfil. Ahora las blancas pueden ejecutar el Fegatello.", highlightSquares: ["d5"] },
+      { san: "Nxf7", from: "g5", to: "f7", name: "¡Sacrificio Fegatello!", comment: "¡Boom! Las blancas sacrifican el caballo para extraer al rey negro al centro del tablero y hacerle un ataque doble a Dama y Torre.", highlightSquares: ["d8", "h8"] },
+      { san: "Kxf7", from: "e8", to: "f7", name: "El Rey sale de paseo", comment: "Forzado, si no se pierde calidad o la dama.", highlightSquares: ["f7"] },
+      { san: "Qf3+", from: "d1", to: "f3", name: "Doble ataque de Dama", comment: "Jaque al rey y ataque simultáneo al caballo de d5 que está clavado.", highlightSquares: ["f7", "d5"] },
+      { san: "Ke6", from: "f7", to: "e6", name: "Defensa desesperada", comment: "El rey negro debe avanzar heroicamente al centro para defender su caballo en d5. La posición es muy peligrosa para las negras.", highlightSquares: ["e6", "d5"] },
+      { san: "Nc3", from: "b1", to: "c3", name: "Aumentando la presión", comment: "Las blancas traen otra pieza para atacar al caballo clavado en d5. Las negras están bajo una presión inmensa.", highlightSquares: ["d5"] }
+    ],
+    traps: [
+      {
+        title: "Evitar el Fegatello: Variante Polerio",
+        desc: "Tras 8.exd5, las negras NUNCA deben recapturar con 8...Cxd5. Lo correcto es 8...Ca5! sacrificando un peón a cambio de gran actividad (9.Ab5+ c6 10.dxc6 bxc6).",
+        moves: "1.e4 e5 2.Cf3 Cc6 3.Ac4 Cf6 4.Cg5 d5 5.exd5 Ca5!"
       }
     ]
   },
