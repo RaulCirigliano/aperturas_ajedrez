@@ -1,23 +1,24 @@
 Objetivo Principal:
-Desarrollar y mantener una aplicación web interactiva y 100% offline (Ajedrez Maestro) para estudiar, comprender y entrenar aperturas de ajedrez. Debe incluir un modo de estudio (paso a paso con explicaciones y flechas tácticas) y un modo de práctica activa (entrenador interactivo contra la base de datos).
+Desarrollar y mantener una aplicación web interactiva y 100% offline (Ajedrez Maestro) para estudiar, comprender y entrenar aperturas de ajedrez. Debe incluir un modo de estudio (paso a paso), un modo de práctica activa (entrenador interactivo) y un modo de tablero libre contra un motor de IA nativo.
 
-Estado Actual:
-- Despliegue: Completamente funcional de forma local sirviéndolo con `python3 server.py` (puerto 8080) o abriendo el `index.html` directamente.
-- Funcionalidades: Tablero interactivo (Drag & Drop), visor de jugadas con flechas y resaltados, motor de reglas de ajedrez personalizado, efectos de sonido sintetizados (Web Audio API), soporte de temas visuales para el tablero y giro de piezas (Flip).
-- Base de Datos de Aperturas: Contiene 8 aperturas clásicas documentadas detalladamente (Italiana (blancas), Española (blancas), Siciliana Najdorf (negras), Francesa (negras), Caro-Kann (negras), Gambito de Dama (blancas), Sistema Londres (blancas) e India de Rey (negras)), junto a sus respectivas celadas y planes estratégicos.
+Estado Actual (Octubre 2026):
+- Repositorio y Despliegue: Inicializado con Git, subido a GitHub (`RaulCirigliano/aperturas_ajedrez`) y publicado en GitHub Pages.
+- Funcionalidades: 
+  - Tablero interactivo, visor de jugadas con flechas, motor de reglas, sonido sintetizado (Web Audio API) y temas visuales.
+  - IA Offline integrada (`ai-engine.js`) con niveles de dificultad (600 a 2000+ ELO).
+  - **Sistema de Progreso:** Guarda estadísticas de aperturas completadas en el modo Práctica (completadas/perfectas) y muestra un "✅" en el selector.
+  - **Sistema de ELO:** Un ELO dinámico (comienza en 1200) que se actualiza si el jugador gana o pierde contra la IA en la continuación del tablero libre (Free Play) al terminar la apertura.
+- Base de Datos de Aperturas (`openings-data.js`): Contiene aperturas clásicas más variantes añadidas (ej. "Italiana: Dos Caballos (Ataque Fegatello)").
 
 Restricciones y Reglas:
-- Autonomía 100% Frontend: No se permite el uso de dependencias externas (CDNs de librerías) para que funcione totalmente offline. Las piezas SVG y el motor están embebidos en el código JS.
-- Sonido: No se utilizan archivos de audio (.mp3 o .wav), todos los sonidos (movimientos, capturas, fanfarrias) son sintetizados en tiempo real mediante `sound.js`.
-- Arquitectura Modular: El código está estrictamente dividido en motor lógico (`chess-engine.js`), UI del tablero (`board-ui.js`), controlador principal (`app.js`), base de datos (`openings-data.js`), piezas (`pieces.js`) y sonido (`sound.js`).
+- Autonomía 100% Frontend: Cero dependencias externas o CDNs. Todo funciona offline. Las piezas y el motor (incluyendo la IA de evaluación) están embebidos en JS.
+- Sonido Sintetizado: Generado con `sound.js`.
+- Arquitectura Modular: Lógica separada (`chess-engine.js`, `board-ui.js`, `ai-engine.js`, `app.js`, `openings-data.js`, `pieces.js`, `sound.js`).
+- Persistencia: Uso exclusivo de `localStorage` (`chess_openings_stats` y `chess_user_elo`).
 
-Entregable Actual:
-Carpeta operativa en `/home/raul/Escritorio/proyectos/chess-openings-trainer` con la siguiente estructura:
-- `index.html` (Estructura de la aplicación)
-- `styles.css` (Temas y responsividad)
-- Lógica JS (`app.js`, `chess-engine.js`, `board-ui.js`)
-- Recursos embebidos (`pieces.js`, `sound.js`, `openings-data.js`)
-- `server.py` (Script lanzador local)
+Directorio de Trabajo:
+Carpeta operativa en `/home/raul/Escritorio/proyectos/aperturas_ajedrez-main`.
 
-Próximo Paso:
-Definir con el usuario si se desea agregar nuevas aperturas o variantes a la base de datos (`openings-data.js`), refinar el comportamiento del motor de ajedrez, o agregar un sistema de registro de progreso/estadísticas local (LocalStorage).
+Próximos Pasos Posibles:
+- Seguir ampliando `openings-data.js` con más variantes tácticas y planes estratégicos.
+- Solucionar y depurar bloqueos del ciclo de turnos de la IA (`state.aiThinking`) en caso de que el usuario cambie de modo abruptamente.

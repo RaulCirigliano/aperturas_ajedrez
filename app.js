@@ -515,6 +515,9 @@ document.addEventListener('DOMContentLoaded', () => {
     stopAutoplay();
     state.practiceStep = 0;
     state.practiceMistakes = 0;
+    state.aiThinking = false;
+    if (state.aiClient) state.aiClient.cancelAll();
+    
     state.engine.reset();
     
     state.boardUI.clearHighlights();
@@ -899,6 +902,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   btnRestart.addEventListener('click', () => {
     stopAutoplay();
+    state.aiThinking = false;
+    if (state.aiClient) state.aiClient.cancelAll();
+
     if (state.currentMode === 'study') {
       setStudyStep(0);
       triggerStudyAutoReply();
