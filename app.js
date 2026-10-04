@@ -1090,14 +1090,15 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function checkGameOver() {
-    if (state.engine.isGameOver()) {
+    const status = state.engine.getGameStatus();
+    if (status.over) {
       let msg = "¡Juego terminado! ";
       let eloMsg = "";
 
-      if (state.engine.inCheckmate) {
+      if (status.reason === 'Jaque mate') {
         msg += "Jaque Mate.";
-        // Determine if user won
-        // If turn is 'w', White was checkmated. If user is 'w', user lost.
+        // If turn is 'w', White was checkmated, which means Black won.
+        // If user is White, user won if Black was checkmated.
         const isWhiteTurn = state.engine.turn === 'w';
         const userIsWhite = state.boardUI.orientation === 'w';
         const userWon = (isWhiteTurn && !userIsWhite) || (!isWhiteTurn && userIsWhite);
@@ -1109,9 +1110,8 @@ document.addEventListener('DOMContentLoaded', () => {
              : `<br><span style="color:#ef4444;">Perdiste contra la IA. ELO ${change > 0 ? '+'+change : change}</span>`;
         }
       }
-      else if (state.engine.inDraw) {
-        msg += "Tablas.";
-        // Could also handle draw ELO if desired, but we'll leave it as no change for now
+      else {
+        msg += status.reason ? status.reason + " (Tablas)" : "Tablas.";
       }
       
       practiceStatusBanner.className = 'practice-status-banner completed';
