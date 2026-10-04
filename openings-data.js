@@ -8,7 +8,7 @@ const OPENINGS_DATA = [
   {
     id: "italiana-giuoco-piano",
     category: "Abiertas (1.e4 e5)",
-    name: "Italiana: Giuoco Piano (Línea Principal)",
+    name: "Italiana: Giuoco Piano (Línea Principal) (blancas)",
     eco: "C50",
     side: "w", // w = blancas, b = negras
     difficulty: "Principiante - Intermedio",
@@ -198,7 +198,7 @@ const OPENINGS_DATA = [
   {
     id: "italiana-dos-caballos-fegatello",
     category: "Abiertas (1.e4 e5)",
-    name: "Italiana: Dos Caballos (Ataque Fegatello)",
+    name: "Italiana: Dos Caballos (Ataque Fegatello) (blancas)",
     eco: "C57",
     side: "w",
     difficulty: "Intermedio",
@@ -245,7 +245,7 @@ const OPENINGS_DATA = [
   {
     id: "apertura-espanola-ruy-lopez",
     category: "Abiertas (1.e4 e5)",
-    name: "Apertura Española (Ruy López)",
+    name: "Apertura Española (Ruy López) (blancas)",
     eco: "C65",
     side: "w",
     difficulty: "Intermedio - Avanzado",
@@ -387,7 +387,7 @@ const OPENINGS_DATA = [
   {
     id: "defensa-siciliana-najdorf",
     category: "Semi-abiertas (1.e4 c5)",
-    name: "Defensa Siciliana: Variante Najdorf",
+    name: "Defensa Siciliana: Variante Najdorf (negras)",
     eco: "B90",
     side: "b",
     difficulty: "Avanzado",
@@ -503,7 +503,7 @@ const OPENINGS_DATA = [
   {
     id: "defensa-francesa-avance",
     category: "Semi-abiertas (1.e4 e6)",
-    name: "Defensa Francesa: Variante del Avance",
+    name: "Defensa Francesa: Variante del Avance (negras)",
     eco: "C02",
     side: "b",
     difficulty: "Intermedio",
@@ -620,7 +620,7 @@ const OPENINGS_DATA = [
   {
     id: "gambito-de-dama-declinado",
     category: "Cerradas (1.d4 d5)",
-    name: "Gambito de Dama: Variante Clásica",
+    name: "Gambito de Dama: Variante Clásica (blancas)",
     eco: "D35",
     side: "w",
     difficulty: "Intermedio",
@@ -735,7 +735,7 @@ const OPENINGS_DATA = [
   {
     id: "sistema-londres",
     category: "Cerradas (1.d4 d5)",
-    name: "Sistema Londres",
+    name: "Sistema Londres (blancas)",
     eco: "D02",
     side: "w",
     difficulty: "Principiante - Avanzado",
@@ -850,7 +850,7 @@ const OPENINGS_DATA = [
   {
     id: "defensa-caro-kann-clasica",
     category: "Semi-abiertas (1.e4 c6)",
-    name: "Defensa Caro-Kann: Variante Clásica",
+    name: "Defensa Caro-Kann: Variante Clásica (negras)",
     eco: "B18",
     side: "b",
     difficulty: "Principiante - Avanzado",
@@ -966,7 +966,7 @@ const OPENINGS_DATA = [
   {
     id: "defensa-india-de-rey",
     category: "Indias (1.d4 Cf6)",
-    name: "Defensa India de Rey: Variante Mar del Plata",
+    name: "Defensa India de Rey: Variante Mar del Plata (negras)",
     eco: "E97",
     side: "b",
     difficulty: "Avanzado",
@@ -1080,7 +1080,7 @@ const OPENINGS_DATA = [
   {
     id: "defensa-siciliana-dragon",
     category: "Semi-abiertas (1.e4 c5)",
-    name: "Defensa Siciliana: Variante Dragón",
+    name: "Defensa Siciliana: Variante Dragón (negras)",
     eco: "B70",
     side: "b",
     difficulty: "Avanzado",
@@ -1115,7 +1115,7 @@ const OPENINGS_DATA = [
   {
     id: "defensa-francesa-winawer",
     category: "Semi-abiertas (1.e4 e6)",
-    name: "Defensa Francesa: Variante Winawer",
+    name: "Defensa Francesa: Variante Winawer (negras)",
     eco: "C15",
     side: "b",
     difficulty: "Avanzado",
@@ -1145,7 +1145,7 @@ const OPENINGS_DATA = [
   {
     id: "apertura-escocesa",
     category: "Abiertas (1.e4 e5)",
-    name: "Apertura Escocesa",
+    name: "Apertura Escocesa (blancas)",
     eco: "C45",
     side: "w",
     difficulty: "Intermedio",
@@ -1175,7 +1175,7 @@ const OPENINGS_DATA = [
   {
     id: "gambito-de-rey-aceptado",
     category: "Abiertas (1.e4 e5)",
-    name: "Gambito de Rey Aceptado",
+    name: "Gambito de Rey Aceptado (blancas)",
     eco: "C33",
     side: "w",
     difficulty: "Avanzado",
@@ -1205,7 +1205,7 @@ const OPENINGS_DATA = [
   {
     id: "ataque-fegatello",
     category: "Abiertas (1.e4 e5)",
-    name: "Ataque Fegatello (Fried Liver Attack)",
+    name: "Ataque Fegatello (Fried Liver Attack) (blancas)",
     eco: "C57",
     side: "w",
     difficulty: "Intermedio",
@@ -1243,7 +1243,7 @@ const OPENINGS_DATA = [
   {
     id: "defensa-nimzoindia",
     category: "Cerradas (1.d4 Nf6)",
-    name: "Defensa Nimzoindia",
+    name: "Defensa Nimzoindia (negras)",
     eco: "E20",
     side: "b",
     difficulty: "Avanzado",
@@ -1274,7 +1274,7 @@ const OPENINGS_DATA = [
   {
     id: "apertura-inglesa",
     category: "Flanco (1.c4)",
-    name: "Apertura Inglesa",
+    name: "Apertura Inglesa (blancas)",
     eco: "A10",
     side: "w",
     difficulty: "Avanzado",
@@ -1305,7 +1305,7 @@ const OPENINGS_DATA = [
   {
     id: "italiana-pianissimo",
     category: "Abiertas (1.e4 e5)",
-    name: "Apertura Italiana: Giuoco Pianissimo",
+    name: "Apertura Italiana: Giuoco Pianissimo (blancas)",
     eco: "C50",
     side: "w",
     difficulty: "Principiante",
@@ -1341,7 +1341,7 @@ const OPENINGS_DATA = [
   {
     id: "italiana-evans",
     category: "Abiertas (1.e4 e5)",
-    name: "Apertura Italiana: Gambito Evans",
+    name: "Apertura Italiana: Gambito Evans (blancas)",
     eco: "C51",
     side: "w",
     difficulty: "Intermedio",
@@ -1383,7 +1383,7 @@ const OPENINGS_DATA = [
   {
     id: "italiana-dos-caballos-polerio",
     category: "Abiertas (1.e4 e5)",
-    name: "Defensa de los Dos Caballos: Variante Polerio",
+    name: "Defensa de los Dos Caballos: Variante Polerio (negras)",
     eco: "C59",
     side: "b",
     difficulty: "Avanzado",
@@ -1412,11 +1412,11 @@ const OPENINGS_DATA = [
       { san: "d5", from: "d7", to: "d5", name: "Bloqueo central", comment: "Única forma de detener la masacre en f7." },
       { san: "exd5", from: "e4", to: "d5", name: "Captura", comment: "Las blancas toman, amenazando ganar material." },
       { san: "Na5", from: "c6", to: "a5", name: "Variante Polerio", comment: "¡La jugada magistral! En vez de retomar en d5 y permitir el ataque Fegatello (Cxd5), las negras atacan el valioso alfil blanco sacrificando el peón.", highlightSquares: ["a5", "c4"], arrows: [{from:"a5", to:"c4", color:"#22c55e"}] },
-      { san: "Bb4+", from: "c4", to: "b4", name: "Jaque intermedio", comment: "Las blancas intentan crear problemas antes de retirar el alfil." },
+      { san: "Bb5+", from: "c4", to: "b5", name: "Jaque intermedio", comment: "Las blancas intentan crear problemas antes de retirar el alfil." },
       { san: "c6", from: "c7", to: "c6", name: "Bloqueo", comment: "Fuerza a las blancas a decidir." },
       { san: "dxc6", from: "d5", to: "c6", name: "Peón por peón", comment: "Las blancas se comen otro peón." },
       { san: "bxc6", from: "b7", to: "c6", name: "Retoma", comment: "Las negras abren líneas. A cambio del peón menos, tienen un desarrollo excelente y una gran iniciativa central." },
-      { san: "Be2", from: "b4", to: "e2", name: "Retirada", comment: "El alfil se retira. Las negras jugarán ...h6 forzando al caballo a volver pasivamente a f3." }
+      { san: "Be2", from: "b5", to: "e2", name: "Retirada", comment: "El alfil se retira. Las negras jugarán ...h6 forzando al caballo a volver pasivamente a f3." }
     ],
     traps: []
   }
@@ -1425,7 +1425,7 @@ const OPENINGS_DATA = [
   {
     id: "espanola-cerrada",
     category: "Abiertas (1.e4 e5)",
-    name: "Apertura Española: Variante Cerrada",
+    name: "Apertura Española: Variante Cerrada (blancas)",
     eco: "C92",
     side: "w",
     difficulty: "Experto",
@@ -1467,7 +1467,7 @@ const OPENINGS_DATA = [
   {
     id: "espanola-berlinesa",
     category: "Abiertas (1.e4 e5)",
-    name: "Defensa Berlinesa",
+    name: "Defensa Berlinesa (negras)",
     eco: "C65",
     side: "b",
     difficulty: "Experto",
@@ -1508,7 +1508,7 @@ const OPENINGS_DATA = [
   {
     id: "espanola-ataque-marshall",
     category: "Abiertas (1.e4 e5)",
-    name: "Apertura Española: Ataque Marshall",
+    name: "Apertura Española: Ataque Marshall (blancas)",
     eco: "C89",
     side: "b",
     difficulty: "Experto",
@@ -1555,7 +1555,7 @@ const OPENINGS_DATA = [
   {
     id: "espanola-variante-cambio",
     category: "Abiertas (1.e4 e5)",
-    name: "Apertura Española: Variante del Cambio",
+    name: "Apertura Española: Variante del Cambio (blancas)",
     eco: "C68",
     side: "w",
     difficulty: "Avanzado",

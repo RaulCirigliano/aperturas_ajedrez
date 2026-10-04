@@ -59,16 +59,16 @@ Puedes hacer doble clic en el archivo `index.html` o abrirlo en cualquier navega
 ## 📚 Aperturas Incluidas en la Base de Datos
 
 1. **Aperturas Abiertas (1.e4 e5)**:
-   - **Apertura Italiana (Giuoco Piano)** (*ECO C50*): Dominio de c4, presión sobre f7 y ruptura central c3-d4. Incluye la Trampa de Légal.
-   - **Apertura Española / Ruy López** (*ECO C65*): Variante Morphy y Variante Cerrada. Presión duradera sobre el centro negro e5. Incluye la Trampa del Arca de Noé.
+   - **Apertura Italiana (Giuoco Piano) (blancas)** (*ECO C50*): Dominio de c4, presión sobre f7 y ruptura central c3-d4. Incluye la Trampa de Légal.
+   - **Apertura Española / Ruy López (blancas)** (*ECO C65*): Variante Morphy y Variante Cerrada. Presión duradera sobre el centro negro e5. Incluye la Trampa del Arca de Noé.
 2. **Aperturas Semi-abiertas (1.e4 ...)**:
-   - **Defensa Siciliana: Variante Najdorf** (*ECO B90*): La respuesta más combativa y asimétrica con ...a6 y lucha por el centro.
-   - **Defensa Francesa: Variante del Avance** (*ECO C02*): Cadena de peones y contraataque feroz a la base en d4 con ...c5 y ...Db6.
-   - **Defensa Caro-Kann: Variante Clásica** (*ECO B18*): Solidez legendaria desarrollando activamente el alfil a f5.
+   - **Defensa Siciliana: Variante Najdorf (negras)** (*ECO B90*): La respuesta más combativa y asimétrica con ...a6 y lucha por el centro.
+   - **Defensa Francesa: Variante del Avance (negras)** (*ECO C02*): Cadena de peones y contraataque feroz a la base en d4 con ...c5 y ...Db6.
+   - **Defensa Caro-Kann: Variante Clásica (negras)** (*ECO B18*): Solidez legendaria desarrollando activamente el alfil a f5.
 3. **Aperturas Cerradas (1.d4 d5 & Indias)**:
-   - **Gambito de Dama: Variante Clásica** (*ECO D35*): Lucha por la iniciativa y el centro. Incluye la Celada del Elefante.
-   - **Sistema Londres** (*ECO D02*): Esquema piramidal universal c3-d4-e3 con alfil activo en f4.
-   - **Defensa India de Rey: Variante Mar del Plata** (*ECO E97*): Hipermodernismo y avalancha de peones en el flanco de rey.
+   - **Gambito de Dama: Variante Clásica (blancas)** (*ECO D35*): Lucha por la iniciativa y el centro. Incluye la Celada del Elefante.
+   - **Sistema Londres (blancas)** (*ECO D02*): Esquema piramidal universal c3-d4-e3 con alfil activo en f4.
+   - **Defensa India de Rey: Variante Mar del Plata (negras)** (*ECO E97*): Hipermodernismo y avalancha de peones en el flanco de rey.
 
 ---
 

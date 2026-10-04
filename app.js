@@ -49,7 +49,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const btnFirst = document.getElementById('btn-first');
   const btnLast = document.getElementById('btn-last');
   const btnAutoplay = document.getElementById('btn-autoplay');
+  const chkAutoreply = document.getElementById('chk-autoreply');
+  const lblAutoreply = document.getElementById('lbl-autoreply');
   const btnUndo = document.getElementById('btn-undo');
+  const btnFreeHint = document.getElementById('btn-free-hint');
   const btnRestart = document.getElementById('btn-restart');
   const movesListEl = document.getElementById('moves-list');
 
@@ -227,7 +230,7 @@ document.addEventListener('DOMContentLoaded', () => {
     stopAutoplay();
 
     // Update Header Meta
-    openingNameEl.textContent = found.name;
+    if (openingNameEl) openingNameEl.textContent = found.name;
     openingEcoEl.textContent = found.eco;
     openingDiffEl.textContent = found.difficulty;
     openingSummaryEl.textContent = found.summary;
@@ -239,8 +242,8 @@ document.addEventListener('DOMContentLoaded', () => {
     renderOpeningStatsUI();
 
     // Update Plans
-    plansWhiteList.innerHTML = found.plansWhite.map(p => `<li>\${p}</li>`).join('');
-    plansBlackList.innerHTML = found.plansBlack.map(p => `<li>\${p}</li>`).join('');
+    plansWhiteList.innerHTML = found.plansWhite.map(p => `<li>${p}</li>`).join('');
+    plansBlackList.innerHTML = found.plansBlack.map(p => `<li>${p}</li>`).join('');
 
     // Update Traps
     if (found.traps && found.traps.length > 0) {
@@ -278,6 +281,7 @@ document.addEventListener('DOMContentLoaded', () => {
       startPracticeMode();
     } else {
       setStudyStep(0);
+      triggerStudyAutoReply();
     }
   }
 
@@ -334,6 +338,33 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Study Mode: Go to specific step
+  
+  function triggerStudyAutoReply() {
+    if (state.currentMode !== 'study' || !chkAutoreply || !chkAutoreply.checked) return;
+    if (state.studyStep >= state.currentOpening.moves.length) return;
+
+    const isWhiteTurn = state.studyStep % 2 === 0;
+    const userIsWhite = state.boardUI.orientation === 'w';
+
+    // If it is the machine's turn
+    if ((isWhiteTurn && !userIsWhite) || (!isWhiteTurn && userIsWhite)) {
+      setTimeout(() => {
+        if (state.currentMode === 'study' && chkAutoreply.checked && state.studyStep < state.currentOpening.moves.length) {
+          // Check turn again in case user manually advanced during timeout
+          const isWT = state.studyStep % 2 === 0;
+          if ((isWT && !userIsWhite) || (!isWT && userIsWhite)) {
+            setStudyStep(state.studyStep + 1);
+            if (typeof chessSound !== 'undefined' && chessSound.playMove) chessSound.playMove();
+          }
+        }
+      }, 600);
+    }
+  }
+
+  if (chkAutoreply) {
+    chkAutoreply.addEventListener('change', triggerStudyAutoReply);
+  }
+
   function setStudyStep(stepIndex) {
     state.studyStep = Math.max(0, Math.min(stepIndex, state.currentOpening.moves.length));
 
@@ -353,7 +384,7 @@ document.addEventListener('DOMContentLoaded', () => {
       moveTagEl.textContent = 'Posición Inicial';
       moveTitleEl.textContent = state.currentOpening.name;
       moveExplanationEl.textContent = state.currentOpening.summary;
-      state.boardUI.clearArrows();
+      
       state.boardUI.setCustomHighlights(state.currentOpening.keySquares || []);
     } else {
       const currentMove = state.currentOpening.moves[state.studyStep - 1];
@@ -375,7 +406,13 @@ document.addEventListener('DOMContentLoaded', () => {
     allMoveItems.forEach((el, idx) => {
       if (idx + 1 === state.studyStep) {
         el.classList.add('active');
-        el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        // Solo hacer scrollIntoView si estamos en escritorio, en móvil causa saltos molestos
+        if (window.innerWidth > 768) {
+          el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        } else {
+          // Scroll manual suave del contenedor para no afectar la ventana
+          if (movesListEl) movesListEl.scrollTop = el.offsetTop - 50;
+        }
       } else {
         el.classList.remove('active');
       }
@@ -433,7 +470,7 @@ document.addEventListener('DOMContentLoaded', () => {
     state.practiceStep = 0;
     state.practiceMistakes = 0;
     state.engine.reset();
-    state.boardUI.clearArrows();
+    
     state.boardUI.clearHighlights();
     state.boardUI.setLastMove(null);
 
@@ -495,6 +532,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Handle Board Move Event (Called when user drops/clicks a move on board)
   function handleUserBoardMove(moveData) {
+    state.boardUI.clearArrows();
     if (state.aiThinking) return false;
     
     if (state.currentMode === 'free') {
@@ -524,6 +562,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
       if (isNext || isNextAlt) {
         setStudyStep(state.studyStep + 1);
+        
+        triggerStudyAutoReply();
+        
         return false; // already applied by setStudyStep
       }
 
@@ -708,6 +749,7 @@ document.addEventListener('DOMContentLoaded', () => {
   btnFirst.addEventListener('click', () => {
     stopAutoplay();
     setStudyStep(0);
+      triggerStudyAutoReply();
   });
 
   btnPrev.addEventListener('click', () => {
@@ -728,6 +770,62 @@ document.addEventListener('DOMContentLoaded', () => {
     stopAutoplay();
     setStudyStep(state.currentOpening.moves.length);
   });
+
+
+  // Free Mode Hint Handler
+  if (btnFreeHint) {
+    btnFreeHint.addEventListener('click', () => {
+      if (state.currentMode !== 'free' || state.aiThinking || !state.evalClient) return;
+      
+      const originalHtml = btnFreeHint.innerHTML;
+      btnFreeHint.innerHTML = 'Pensando...';
+      state.aiThinking = true;
+      
+      const fen = state.engine.getFen();
+      state.evalClient.think({ fen, depth: 6, timeMs: 500 }).then(res => {
+          state.aiThinking = false;
+          btnFreeHint.innerHTML = originalHtml;
+          
+          if (res.bestmove) {
+            const from = res.bestmove.substring(0, 2);
+            const to = res.bestmove.substring(2, 4);
+            const promotion = res.bestmove.length > 4 ? res.bestmove[4] : undefined;
+            
+            state.boardUI.setCustomHighlights([from, to]);
+            state.boardUI.setArrows([{from, to, color: 'blue'}]);
+            
+            const isCapture = state.engine.getPiece(to) !== null;
+            state.engine.makeMove({from, to, promotion});
+            const isCheck = state.engine.isInCheck();
+            const isCheckmate = state.engine.isCheckmate();
+            state.engine.undoMove();
+            
+            let objective = "Desarrolla o mejora la posición de la pieza.";
+            if (isCheckmate) {
+                objective = "¡Da Jaque Mate!";
+            } else if (isCheck) {
+                objective = "Ataca al rey enemigo (Jaque).";
+            } else if (isCapture) {
+                objective = "Captura material enemigo.";
+            } else if (['e4','d4','e5','d5'].includes(to)) {
+                objective = "Lucha por el control del centro.";
+            } else if (res.score && res.score > 200) {
+                objective = "Aprovecha una ventaja táctica o material.";
+            }
+            
+            let evalStr = res.score !== undefined ? (res.score / 100).toFixed(2) : "?";
+            if (res.score && res.score > 20000) evalStr = "Mate a favor";
+            if (res.score && res.score < -20000) evalStr = "Mate en contra";
+            
+            moveExplanationEl.textContent = `Sugerencia IA: Mover de ${from} a ${to}. Objetivo: ${objective} (Evaluación: ${evalStr})`;
+          }
+      }).catch(err => {
+          state.aiThinking = false;
+          btnFreeHint.innerHTML = originalHtml;
+          console.error(err);
+      });
+    });
+  }
 
   btnUndo.addEventListener('click', () => {
     if (state.currentMode !== 'free' || state.aiThinking) return;
@@ -757,12 +855,13 @@ document.addEventListener('DOMContentLoaded', () => {
     stopAutoplay();
     if (state.currentMode === 'study') {
       setStudyStep(0);
+      triggerStudyAutoReply();
     } else if (state.currentMode === 'practice') {
       startPracticeMode();
     } else if (state.currentMode === 'free') {
       // Reiniciar desde el inicio de la variante
       state.engine.reset();
-      state.boardUI.clearArrows();
+      
       state.boardUI.clearHighlights();
       state.boardUI.setLastMove(null);
       state.boardUI.render();
@@ -791,6 +890,7 @@ document.addEventListener('DOMContentLoaded', () => {
     } else if (e.key === 'Home') {
       stopAutoplay();
       setStudyStep(0);
+      triggerStudyAutoReply();
     } else if (e.key === 'End') {
       stopAutoplay();
       setStudyStep(state.currentOpening.moves.length);
@@ -807,7 +907,9 @@ document.addEventListener('DOMContentLoaded', () => {
     practicePanel.style.display = 'none';
     document.getElementById('nav-group').style.display = 'flex';
     btnUndo.style.display = 'none';
+    if (btnFreeHint) btnFreeHint.style.display = 'none';
     btnAutoplay.style.display = 'flex';
+    if (lblAutoreply) lblAutoreply.style.display = 'flex';
     setStudyStep(state.studyStep);
   });
 
@@ -820,7 +922,9 @@ document.addEventListener('DOMContentLoaded', () => {
     practicePanel.style.display = 'flex';
     document.getElementById('nav-group').style.display = 'none';
     btnUndo.style.display = 'none';
+    if (btnFreeHint) btnFreeHint.style.display = 'none';
     btnAutoplay.style.display = 'none';
+    if (lblAutoreply) lblAutoreply.style.display = 'none';
     startPracticeMode();
   });
 
@@ -836,8 +940,10 @@ document.addEventListener('DOMContentLoaded', () => {
     moveExplanationEl.textContent = 'Mueve libremente cualquier pieza para probar variantes o ideas personales.';
     document.getElementById('nav-group').style.display = 'none';
     btnUndo.style.display = 'flex';
+    if (btnFreeHint) btnFreeHint.style.display = 'flex';
     btnAutoplay.style.display = 'none';
-    state.boardUI.clearArrows();
+    if (lblAutoreply) lblAutoreply.style.display = 'none';
+    
     state.boardUI.clearHighlights();
     checkAIMove();
   });
@@ -917,6 +1023,7 @@ document.addEventListener('DOMContentLoaded', () => {
           const promotion = res.bestmove.length > 4 ? res.bestmove[4] : undefined;
           
           const moveData = { from, to, promotion };
+          state.boardUI.clearArrows();
           const result = state.engine.makeMove(moveData);
           if (result) {
             state.boardUI.setLastMove(result);

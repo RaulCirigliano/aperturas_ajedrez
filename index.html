@@ -120,6 +120,14 @@
         </div>
 
         <div class="board-toolbar-group">
+                    <button id="btn-free-hint" class="btn" title="Pedir sugerencia a la IA" style="display: none;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="12" y1="16" x2="12" y2="12"></line>
+              <line x1="12" y1="8" x2="12.01" y2="8"></line>
+            </svg>
+            Sugerencia
+          </button>
           <button id="btn-undo" class="btn" title="Deshacer jugada (Tablero Libre)" style="display: none;">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M3 7v6h6"></path>
@@ -140,6 +148,10 @@
             </svg>
             Auto
           </button>
+          <label id="lbl-autoreply" class="btn" style="display:flex; align-items:center; gap:4px; cursor:pointer;" title="Que la máquina responda automáticamente a tus jugadas en Modo Estudio">
+            <input type="checkbox" id="chk-autoreply" style="margin:0;">
+            Auto-respuesta
+          </label>
         </div>
       </div>
     </section>

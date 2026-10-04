@@ -4,7 +4,7 @@ Desarrollar y mantener una aplicación web interactiva y 100% offline (Ajedrez M
 Estado Actual:
 - Despliegue: Completamente funcional de forma local sirviéndolo con `python3 server.py` (puerto 8080) o abriendo el `index.html` directamente.
 - Funcionalidades: Tablero interactivo (Drag & Drop), visor de jugadas con flechas y resaltados, motor de reglas de ajedrez personalizado, efectos de sonido sintetizados (Web Audio API), soporte de temas visuales para el tablero y giro de piezas (Flip).
-- Base de Datos de Aperturas: Contiene 8 aperturas clásicas documentadas detalladamente (Italiana, Española, Siciliana Najdorf, Francesa, Caro-Kann, Gambito de Dama, Sistema Londres e India de Rey), junto a sus respectivas celadas y planes estratégicos.
+- Base de Datos de Aperturas: Contiene 8 aperturas clásicas documentadas detalladamente (Italiana (blancas), Española (blancas), Siciliana Najdorf (negras), Francesa (negras), Caro-Kann (negras), Gambito de Dama (blancas), Sistema Londres (blancas) e India de Rey (negras)), junto a sus respectivas celadas y planes estratégicos.
 
 Restricciones y Reglas:
 - Autonomía 100% Frontend: No se permite el uso de dependencias externas (CDNs de librerías) para que funcione totalmente offline. Las piezas SVG y el motor están embebidos en el código JS.
