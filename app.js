@@ -95,6 +95,52 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  // ELO Logic
+  let userElo = 1200;
+  const userEloTextEl = document.getElementById('user-elo-text');
+
+  function loadUserElo() {
+    try {
+      const savedElo = localStorage.getItem('chess_user_elo');
+      if (savedElo) userElo = parseInt(savedElo, 10);
+    } catch (e) {}
+    if (userEloTextEl) userEloTextEl.textContent = userElo;
+  }
+  loadUserElo();
+
+  function updateUserElo(didWin, aiLevel) {
+    if (aiLevel <= 0) return;
+    
+    let eloChange = 0;
+    if (didWin) {
+      // Win: +10 to +35 depending on AI level
+      eloChange = aiLevel * 5 + 5;
+    } else {
+      // Lose: -13 to -3 depending on AI level (harder AI = lose less)
+      eloChange = -(15 - aiLevel * 2);
+    }
+
+    userElo += eloChange;
+    // Prevent ELO from dropping below 100
+    if (userElo < 100) userElo = 100;
+
+    try {
+      localStorage.setItem('chess_user_elo', userElo.toString());
+    } catch (e) {}
+    
+    if (userEloTextEl) {
+      userEloTextEl.textContent = userElo;
+      // Animate briefly to show change
+      userEloTextEl.style.color = eloChange > 0 ? '#10b981' : '#ef4444';
+      userEloTextEl.textContent += eloChange > 0 ? ` (+${eloChange})` : ` (${eloChange})`;
+      setTimeout(() => {
+        userEloTextEl.style.color = '#38bdf8';
+        userEloTextEl.textContent = userElo;
+      }, 3000);
+    }
+    return eloChange;
+  }
+
   function saveProgress(openingId, mistakes) {
     const stats = getProgressStats();
     if (!stats[openingId]) {
@@ -986,8 +1032,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // AI move handler
   function checkAIMove() {
+    if (state.engine.isGameOver()) {
+      checkGameOver();
+      return;
+    }
     if (state.aiLevelId === 0 || !state.aiClient || state.aiThinking) return;
-    if (state.engine.isGameOver()) return;
 
     // Determine whose turn it is
     const isWhiteTurn = state.engine.turn === 'w';
@@ -1043,15 +1092,34 @@ document.addEventListener('DOMContentLoaded', () => {
   function checkGameOver() {
     if (state.engine.isGameOver()) {
       let msg = "¡Juego terminado! ";
-      if (state.engine.inCheckmate) msg += "Jaque Mate.";
-      else if (state.engine.inDraw) msg += "Tablas.";
+      let eloMsg = "";
+
+      if (state.engine.inCheckmate) {
+        msg += "Jaque Mate.";
+        // Determine if user won
+        // If turn is 'w', White was checkmated. If user is 'w', user lost.
+        const isWhiteTurn = state.engine.turn === 'w';
+        const userIsWhite = state.boardUI.orientation === 'w';
+        const userWon = (isWhiteTurn && !userIsWhite) || (!isWhiteTurn && userIsWhite);
+        
+        if (state.currentMode === 'free' && state.aiLevelId > 0) {
+           const change = updateUserElo(userWon, state.aiLevelId);
+           eloMsg = userWon 
+             ? `<br><span style="color:#10b981;">¡Ganaste a la IA! ELO ${change > 0 ? '+'+change : change}</span>`
+             : `<br><span style="color:#ef4444;">Perdiste contra la IA. ELO ${change > 0 ? '+'+change : change}</span>`;
+        }
+      }
+      else if (state.engine.inDraw) {
+        msg += "Tablas.";
+        // Could also handle draw ELO if desired, but we'll leave it as no change for now
+      }
       
       practiceStatusBanner.className = 'practice-status-banner completed';
       practiceStatusBanner.innerHTML = `
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <polyline points="20 6 9 17 4 12"/>
         </svg>
-        <span>${msg}</span>
+        <span>${msg}${eloMsg}</span>
       `;
     }
   }
