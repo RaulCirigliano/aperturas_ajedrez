@@ -1097,30 +1097,40 @@ document.addEventListener('DOMContentLoaded', () => {
 
       if (status.reason === 'Jaque mate') {
         msg += "Jaque Mate.";
-        // If turn is 'w', White was checkmated, which means Black won.
-        // If user is White, user won if Black was checkmated.
         const isWhiteTurn = state.engine.turn === 'w';
         const userIsWhite = state.boardUI.orientation === 'w';
         const userWon = (isWhiteTurn && !userIsWhite) || (!isWhiteTurn && userIsWhite);
         
-        if (state.currentMode === 'free' && state.aiLevelId > 0) {
+        const isFreePlay = state.currentMode === 'free' || (state.currentMode === 'practice' && state.practiceStep >= state.currentOpening.moves.length);
+        if (isFreePlay && state.aiLevelId > 0) {
            const change = updateUserElo(userWon, state.aiLevelId);
            eloMsg = userWon 
-             ? `<br><span style="color:#10b981;">¡Ganaste a la IA! ELO ${change > 0 ? '+'+change : change}</span>`
-             : `<br><span style="color:#ef4444;">Perdiste contra la IA. ELO ${change > 0 ? '+'+change : change}</span>`;
+             ? `<br><span style="color:#10b981;font-weight:bold;">¡Ganaste a la IA! ELO ${change > 0 ? '+'+change : change}</span>`
+             : `<br><span style="color:#ef4444;font-weight:bold;">Perdiste contra la IA. ELO ${change > 0 ? '+'+change : change}</span>`;
         }
       }
       else {
         msg += status.reason ? status.reason + " (Tablas)" : "Tablas.";
       }
       
-      practiceStatusBanner.className = 'practice-status-banner completed';
-      practiceStatusBanner.innerHTML = `
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <polyline points="20 6 9 17 4 12"/>
-        </svg>
-        <span>${msg}${eloMsg}</span>
+      const bannerHtml = `
+        <div style="background:rgba(255,255,255,0.1);padding:1rem;border-radius:8px;border:1px solid rgba(255,255,255,0.2);margin-top:0.5rem;">
+          <h3 style="margin-bottom:0.5rem;">${msg}</h3>
+          ${eloMsg}
+        </div>
       `;
+
+      if (state.currentMode === 'free' || state.currentMode === 'study') {
+        moveExplanationEl.innerHTML = bannerHtml;
+      } else {
+        practiceStatusBanner.className = 'practice-status-banner completed';
+        practiceStatusBanner.innerHTML = `
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+          <span>${msg}${eloMsg}</span>
+        `;
+      }
     }
   }
 
