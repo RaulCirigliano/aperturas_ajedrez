@@ -30,3 +30,8 @@ Sin embargo, las **funciones exclusivas de Inteligencia Artificial** (como el Co
 ### Últimas Actualizaciones (Coach Virtual y ELO)
 Las funciones de "Entrenador Personalizado" (Coach Virtual vía Ollama, Modal de Estadísticas, y Tracking de ELO) ya han sido **implementadas con éxito** en el repositorio hermano (`ajedrez_entrenador-personalizado`). 
 *Nota:* Se descubrió y parcheó un error temporal donde el ELO parecía perderse al cambiar de app (las variables `chess_user_elo` y `chess_coach_profile` ahora se sincronizan correctamente).
+
+### Protocolo Git y Sincronización entre Dispositivos (PC y Netbook)
+* **Git Centralizado:** Mantener Git siempre actualizado y sincronizado (`git commit` y `git push`) en cada sesión para que la PC y la netbook trabajen centralizadas sobre los mismos repositorios sin conflictos.
+* Antes de iniciar tareas, verificar el estado con `git status` y actualizar con `git pull` si corresponde.
+* **Categoría "Especiales" añadida:** Se incorporó en `openings-data.js` la categoría "Especiales" con la variante "Destruye el Doble Fianchetto (blancas)", preparada para agregar nuevas líneas de tipo "Destruye xxxx".

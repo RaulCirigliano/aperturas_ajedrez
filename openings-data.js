@@ -1591,6 +1591,58 @@ const OPENINGS_DATA = [
         moves: "5.Cxe5?! Dd4! 6.Cf3 Dxe4+ 7.De2 Dxe2+ 8.Rxe2."
       }
     ]
+  },
+  {
+    id: "destruye-doble-fianchetto",
+    category: "Especiales",
+    name: "Destruye el Doble Fianchetto (blancas)",
+    eco: "B00",
+    side: "w",
+    difficulty: "Intermedio",
+    style: "Ataque agresivo",
+    ratingRange: "800 - 2200",
+    summary: "Plan letal para castigar la defensa pasiva del Doble Fianchetto. Construye una ventaja de espacio brutal, centraliza las piezas, cambia el defensor principal y lanza una tormenta de peones sobre el rey enemigo.",
+    plansWhite: [
+      "Batería Qd2 para conectar torres y preparar el cambio en h6.",
+      "Enroque Largo (O-O-O) para centralizar la torre en d1 y proteger al rey.",
+      "Cambiar el mejor defensor negro con Bh6 tras el enroque corto rival.",
+      "Tormenta de peones con h4-h5 o avance de ruptura en e5."
+    ],
+    plansBlack: [
+      "Intentar desarrollar los caballos tarde y luchar por el centro.",
+      "Buscar contrajuego con c5 o defender el flanco de rey expuesto."
+    ],
+    keySquares: ["h6", "d4", "e4", "h5", "e5"],
+    moves: [
+      { san: "e4", from: "e2", to: "e4", name: "Centro blanco", comment: "Las blancas ocupan el centro.", highlightSquares: ["e4", "d4"] },
+      { san: "b6", from: "b7", to: "b6", name: "Preparación Fianchetto", comment: "Las negras inician su esquema pasivo." },
+      { san: "d4", from: "d2", to: "d4", name: "Centro blanco completo", comment: "Ocupando ambas casillas centrales." },
+      { san: "Bb7", from: "c8", to: "b7", name: "Primer Fianchetto", comment: "El alfil negro apunta al centro desde lejos.", arrows: [{ from: "b7", to: "e4", color: "#f97316" }] },
+      { san: "Nc3", from: "b1", to: "c3", name: "Desarrollo y defensa", comment: "Sostiene el peón de e4." },
+      { san: "g6", from: "g7", to: "g6", name: "Preparación del segundo Fianchetto", comment: "Las negras ignoran el centro por completo." },
+      { san: "Nf3", from: "g1", to: "f3", name: "Desarrollo clásico", comment: "Las blancas desarrollan armónicamente." },
+      { san: "Bg7", from: "f8", to: "g7", name: "El Doble Fianchetto", comment: "Las negras completan su esquema pasivo, cediendo todo el centro a cambio de presión a distancia." },
+      { san: "Bg5", from: "c1", to: "g5", name: "Alfil activo", comment: "Desarrollo del alfil de casillas oscuras, preparándose para la batería." },
+      { san: "d6", from: "d7", to: "d6", name: "Solidez negra", comment: "Un movimiento típico para preparar el desarrollo de caballos sin estorbar a los alfiles." },
+      { san: "Qd2", from: "d1", to: "d2", name: "La Batería (Paso 1)", comment: "¡Plan de Ataque! Conecta la dama y prepara el cambio del alfil defensor negro más adelante." },
+      { san: "Nf6", from: "g8", to: "f6", name: "Desarrollo de caballo", comment: "Las negras finalmente intentan disputar algo del centro." },
+      { san: "O-O-O", from: "e1", to: "c1", name: "Enroque Largo (Paso 2)", comment: "Rey a salvo y la torre centralizada en d1. Todas las piezas pesadas apuntan al centro." },
+      { san: "O-O", from: "e8", to: "g8", name: "Enroque corto negro", comment: "Las negras resguardan su rey, pero definen su posición, ¡ahora es el momento de atacar!" },
+      { san: "Bh6", from: "g5", to: "h6", name: "Intercambia el Defensor (Paso 3)", comment: "Obliga a cambiar el vital alfil de g7. Sin él, el flanco de rey negro será vulnerable.", arrows: [{ from: "g5", to: "h6", color: "#ef4444" }] },
+      { san: "c5", from: "c7", to: "c5", name: "Intento de contrajuego", comment: "Las negras intentan romper el centro con c5 o d5 tarde en el juego." },
+      { san: "h4", from: "h2", to: "h4", name: "La Tormenta de Peones (Paso 4)", comment: "¡Al cuello! Inicia el asalto directo para abrir la columna h contra el rey negro." },
+      { san: "cxd4", from: "c5", to: "d4", name: "Captura", comment: "Tratando de abrir líneas." },
+      { san: "Nxd4", from: "f3", to: "d4", name: "Centralización", comment: "El caballo blanco domina el centro." },
+      { san: "Nc6", from: "b8", to: "c6", name: "Desarrollo", comment: "Desarrollando la última pieza menor." },
+      { san: "h5", from: "h4", to: "h5", name: "Destrucción", comment: "Abre la columna h de forma imparable. Las blancas tienen un ataque demoledor." }
+    ],
+    traps: [
+      {
+        title: "Castigar el centro rápido con e5",
+        desc: "Si las negras intentan desarrollar su caballo a f6 en la jugada 5 o 6 sin jugar d6, puedes responder empujando tu peón a e5, pateando al caballo y ganando aún más espacio.",
+        moves: "1.e4 b6 2.d4 Bb7 3.Nc3 g6 4.Nf3 Bg7 5.Bg5 Nf6?! 6.e5! Nh5"
+      }
+    ]
   }
 ];
 
