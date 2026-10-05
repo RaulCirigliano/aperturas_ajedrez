@@ -22,3 +22,7 @@ Carpeta operativa en `/home/raul/Escritorio/proyectos/aperturas_ajedrez-main`.
 Próximos Pasos Posibles:
 - Seguir ampliando `openings-data.js` con más variantes tácticas y planes estratégicos.
 - Solucionar y depurar bloqueos del ciclo de turnos de la IA (`state.aiThinking`) en caso de que el usuario cambie de modo abruptamente.
+
+## Sincronización de Proyectos
+**Nota Importante:** Este proyecto ("aperturas_ajedrez") y su versión avanzada ("Ajedrez - Entrenador Personalizado") comparten el mismo núcleo. A partir de ahora, cualquier mejora en la interfaz de usuario, corrección de errores generales o refactorización del código base debe **aplicarse en ambos repositorios** para mantenerlos sincronizados. 
+Sin embargo, las **funciones exclusivas de Inteligencia Artificial** (como el Coach Virtual o la integración con LLMs locales) pertenecen **únicamente** a la versión del "Entrenador Personalizado" y **NO** deben incluirse ni mezclarse en este repositorio, el cual debe mantenerse exclusivamente como una aplicación web frontend sin dependencias externas complejas.

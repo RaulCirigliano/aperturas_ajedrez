@@ -385,16 +385,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Study Mode: Go to specific step
   
+  let autoReplyTimeout = null;
   function triggerStudyAutoReply() {
     if (state.currentMode !== 'study' || !chkAutoreply || !chkAutoreply.checked) return;
+    if (state.autoPlayInterval) return;
     if (state.studyStep >= state.currentOpening.moves.length) return;
 
     const isWhiteTurn = state.studyStep % 2 === 0;
     const userIsWhite = state.boardUI.orientation === 'w';
 
+    if (autoReplyTimeout) clearTimeout(autoReplyTimeout);
+
     // If it is the machine's turn
     if ((isWhiteTurn && !userIsWhite) || (!isWhiteTurn && userIsWhite)) {
-      setTimeout(() => {
+      autoReplyTimeout = setTimeout(() => {
         if (state.currentMode === 'study' && chkAutoreply.checked && state.studyStep < state.currentOpening.moves.length) {
           // Check turn again in case user manually advanced during timeout
           const isWT = state.studyStep % 2 === 0;
@@ -465,6 +469,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     state.boardUI.render();
+    triggerStudyAutoReply();
   }
 
   // Autoplay functionality

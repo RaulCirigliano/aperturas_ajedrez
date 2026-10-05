@@ -918,3 +918,17 @@ header {
   background: rgba(11, 15, 25, 0.6);
   padding: 2px 0;
 }
+
+/* Promotion Options */
+.promo-piece {
+  width: 60px;
+  height: 60px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  border-radius: 8px;
+  transition: background-color 0.2s;
+}
+.promo-piece:hover {
+  background-color: var(--border-color);
+}
