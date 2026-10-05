@@ -26,3 +26,7 @@ Próximos Pasos Posibles:
 ## Sincronización de Proyectos
 **Nota Importante:** Este proyecto ("aperturas_ajedrez") y su versión avanzada ("Ajedrez - Entrenador Personalizado") comparten el mismo núcleo. A partir de ahora, cualquier mejora en la interfaz de usuario, corrección de errores generales o refactorización del código base debe **aplicarse en ambos repositorios** para mantenerlos sincronizados. 
 Sin embargo, las **funciones exclusivas de Inteligencia Artificial** (como el Coach Virtual o la integración con LLMs locales) pertenecen **únicamente** a la versión del "Entrenador Personalizado" y **NO** deben incluirse ni mezclarse en este repositorio, el cual debe mantenerse exclusivamente como una aplicación web frontend sin dependencias externas complejas.
+
+### Últimas Actualizaciones (Coach Virtual y ELO)
+Las funciones de "Entrenador Personalizado" (Coach Virtual vía Ollama, Modal de Estadísticas, y Tracking de ELO) ya han sido **implementadas con éxito** en el repositorio hermano (`ajedrez_entrenador-personalizado`). 
+*Nota:* Se descubrió y parcheó un error temporal donde el ELO parecía perderse al cambiar de app (las variables `chess_user_elo` y `chess_coach_profile` ahora se sincronizan correctamente).
